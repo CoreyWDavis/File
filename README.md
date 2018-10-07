@@ -7,7 +7,7 @@ A simple API to read and write files in Swift.
 - Pure Swift implimentation
 
 ## Using File
-In it's most simplistic form, File can be used to simply write data to files and read it back again.
+In its most simplistic form, File can be used to simply write data to files and read it back again.
 
 First, setup a file name components property:
 
@@ -28,9 +28,9 @@ do {
 }
 ```
 
-To read the file, use File's `read` functions:
+To read the file, use File's `read` function:
 
-```swfit
+```swift
 do {
     let data = try File.read(from: fileNameComponents)
 } catch {
@@ -58,7 +58,7 @@ extension YourClass: FileWritable {
 
 ```swift
 extension YourClass: FileReadable {
-    static func read(from fileNameComponents: FileNameComponents) throws -> SampleData {
+    static func read(from fileNameComponents: FileNameComponents) throws -> YourClass {
         do {
             // Read the file data using the File class.
             let data = try File.read(from: fileNameComponents)
@@ -77,6 +77,14 @@ To see it in action, download the File Xcode project.
 
 ## How to Use File in Your Project
 Until File is converted into a Cocoapod, simply drag the `File.swift` file into your Xcode project.
+
+## To Do
+Things I would like to get to sometime soon:
+
+- Deleting files
+- File renaming
+- Folder navigation and file traversal
+- Moving/copying files between folders
 
 ## Have Questions or Suggestions?
 If you have a problem or question, please [open an issue](https://github.com/CoreyWDavis/File/issues). You can also contact me on Twitter [@CoreyDavis](https://twitter.com/coreydavis).

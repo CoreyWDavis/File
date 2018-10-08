@@ -12,7 +12,7 @@ In its most simplistic form, File can be used to simply write data to files and 
 First, setup a file name components property:
 
 ```swift
-let fileComponents = FileNameComponents(fileName: "my-file-name",
+let fileComponents = FileURLComponents(fileName: "my-file-name",
                                         fileExtension: "json",
                                         directoryName: nil,
                                         directoryPath: .documentDirectory)
@@ -43,7 +43,7 @@ To get the most out of File, use the `FileWritable` and `FileReadable` protocols
 
 ```swift
 extension YourClass: FileWritable {
-    func write(to fileNameComponents: FileNameComponents) throws -> URL {
+    func write(to fileNameComponents: FileURLComponents) throws -> URL {
         do {
             // Encode the object to JSON data.
             let data = try JSONEncoder().encode(self)
@@ -58,7 +58,7 @@ extension YourClass: FileWritable {
 
 ```swift
 extension YourClass: FileReadable {
-    static func read(from fileNameComponents: FileNameComponents) throws -> YourClass {
+    static func read(from fileNameComponents: FileURLComponents) throws -> YourClass {
         do {
             // Read the file data using the File class.
             let data = try File.read(from: fileNameComponents)

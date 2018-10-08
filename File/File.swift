@@ -35,7 +35,7 @@ import Foundation
 ///    - fileExtension: An optional file extension (ex: "txt" for .txt).
 ///    - directoryName: An optional directory name. If the directory does not exist it will be created.
 ///    - directoryPath: The directory path were the optional directory name and file will be created (ex: FileManager.SearchPathDirectory.documentsDirectory).
-public struct FileNameComponents {
+public struct FileURLComponents {
     var fileName: String
     var fileExtension: String?
     var directoryName: String?
@@ -44,12 +44,12 @@ public struct FileNameComponents {
 
 /// When an object conforms to the FileWritable protocol, it is signaling that the object is capable of saving itself to a file.
 public protocol FileWritable {
-    func write(to fileNameParameters: FileNameComponents) throws -> URL
+    func write(to fileNameParameters: FileURLComponents) throws -> URL
 }
 
 /// When an object conforms to the FileReadable protocol, it is signaling that the object is capable of creating itself from a file's contents.
 public protocol FileReadable {
-    static func read(from fileNameParameters: FileNameComponents) throws -> Self
+    static func read(from fileNameParameters: FileURLComponents) throws -> Self
 }
 
 /// When an object conforms to Fileable it will conform to both FileWritable and FileReadable.
@@ -67,7 +67,7 @@ public class File {
     ///    - data: The data to be written.
     ///    - to: The components that will make up the destination file URL.
     /// - Returns: The URL to the file.
-    public static func write(_ data: Data, to fileNameComponents: FileNameComponents) throws -> URL {
+    public static func write(_ data: Data, to fileNameComponents: FileURLComponents) throws -> URL {
         do {
             // Get the file destination url
             let destinationURL = try File.fileURL(using: fileNameComponents)
@@ -84,7 +84,7 @@ public class File {
     /// - Parameters:
     ///    - from: The components that will make up the source file URL.
     /// - Returns: The file data.
-    public static func read(from fileNameComponents: FileNameComponents) throws -> Data {
+    public static func read(from fileNameComponents: FileURLComponents) throws -> Data {
         do {
             // Get the file source url
             let sourceURL = try File.fileURL(using: fileNameComponents)
@@ -100,7 +100,7 @@ public class File {
     /// - Parameters:
     ///    - using: The file components to be used when constructing the file URL.
     /// - Returns: The file URL.
-    private static func fileURL(using fileNameComponents: FileNameComponents) throws -> URL {
+    private static func fileURL(using fileNameComponents: FileURLComponents) throws -> URL {
         do {
             // Get the destination directory url
             let dirURL = try File.directoryURL(for: fileNameComponents.directoryName, at: fileNameComponents.directoryPath)

@@ -13,7 +13,7 @@ struct SampleData: Codable {
 }
 
 extension SampleData: Fileable {
-    func write(to fileNameComponents: FileNameComponents) throws -> URL {
+    func write(to fileNameComponents: FileURLComponents) throws -> URL {
         do {
             // Encode the object to JSON data.
             let data = try JSONEncoder().encode(self)
@@ -24,7 +24,7 @@ extension SampleData: Fileable {
         }
     }
     
-    static func read(from fileNameComponents: FileNameComponents) throws -> SampleData {
+    static func read(from fileNameComponents: FileURLComponents) throws -> SampleData {
         do {
             // Read the file data using the File class.
             let data = try File.read(from: fileNameComponents)

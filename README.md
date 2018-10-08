@@ -13,16 +13,16 @@ First, setup a file name components property:
 
 ```swift
 let fileComponents = FileURLComponents(fileName: "my-file-name",
-                                        fileExtension: "json",
-                                        directoryName: nil,
-                                        directoryPath: .documentDirectory)
+                                       fileExtension: "json",
+                                       directoryName: nil,
+                                       directoryPath: .documentDirectory)
 ```
 
 Then, once you have some data that is ready to be saved, pass it and the file name components to File's `write` function:
 
 ```swift
 do {
-    return try File.write(data, to: fileNameComponents)
+    return try File.write(data, to: fileURLComponents)
 } catch {
     throw error
 }
@@ -32,7 +32,7 @@ To read the file, use File's `read` function:
 
 ```swift
 do {
-    let data = try File.read(from: fileNameComponents)
+    let data = try File.read(from: fileURLComponents)
 } catch {
     throw error
 }
@@ -43,30 +43,22 @@ To get the most out of File, use the `FileWritable` and `FileReadable` protocols
 
 ```swift
 extension YourClass: FileWritable {
-    func write(to fileNameComponents: FileURLComponents) throws -> URL {
-        do {
-            // Encode the object to JSON data.
-            let data = try JSONEncoder().encode(self)
-            // Write the data to a file using the File class.
-            return try File.write(data, to: fileNameComponents)
-        } catch {
-            throw error
-        }
+    func write(to fileURLComponents: FileURLComponents) throws -> URL {
+        // Encode the object to JSON data.
+        let data = try JSONEncoder().encode(self)
+        // Write the data to a file using the File class.
+        return try File.write(data, to: fileURLComponents)
     }
 }
 ```
 
 ```swift
 extension YourClass: FileReadable {
-    static func read(from fileNameComponents: FileURLComponents) throws -> YourClass {
-        do {
-            // Read the file data using the File class.
-            let data = try File.read(from: fileNameComponents)
-            // Decode the JSON data into an object.
-            return try JSONDecoder().decode(YourClass.self, from: data)
-        } catch {
-            throw error
-        }
+    static func read(from fileURLComponents: FileURLComponents) throws -> Any {
+        // Read the file data using the File class.
+        let data = try File.read(from: fileURLComponents)
+        // Decode the JSON data into an object.
+        return try JSONDecoder().decode(YourClass.self, from: data)
     }
 }
 ```

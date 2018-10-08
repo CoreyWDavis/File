@@ -34,7 +34,9 @@ class ViewController: UIViewController {
     
     @IBAction func read(_ sender: Any) {
         do {
-            let sampleData = try SampleData.read(from: fileComponents)
+            guard let sampleData = try SampleData.read(from: fileComponents) as? SampleData else {
+                return
+            }
             textRead.text = sampleData.text
         } catch {
             showAlert(withTitle: "Error", andMessage: error.localizedDescription)
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     // The file components that will be used when reading & writing the file
-    let fileComponents = FileNameComponents(fileName: "sample",
+    let fileComponents = FileURLComponents(fileName: "sample",
                                             fileExtension: "json",
                                             directoryName: nil,
                                             directoryPath: .documentDirectory)

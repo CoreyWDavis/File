@@ -32,7 +32,7 @@ To read the file, use File's `read` function:
 
 ```swift
 do {
-    let data = try File.read(SampleData.self, from: fileURLComponents)
+    let data = try File.read(from: fileURLComponents)
 } catch {
     throw error
 }

@@ -12,7 +12,7 @@ In its most simplistic form, File can be used to simply write data to files and 
 First, setup a file name components property:
 
 ```swift
-let fileComponents = FileURLComponents(fileName: "my-file-name",
+let fileURLComponents = FileURLComponents(fileName: "my-file-name",
                                        fileExtension: "json",
                                        directoryName: nil,
                                        directoryPath: .documentDirectory)

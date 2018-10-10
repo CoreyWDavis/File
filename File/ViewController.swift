@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
         // Write the sample object data
         do {
-            let url = try sampleData.write(to: fileComponents)
+            let url = try sampleData.write(to: fileURLComponents)
             fileName.text = url.absoluteString
         } catch {
             showAlert(withTitle: "Error", andMessage: error.localizedDescription)
@@ -34,9 +34,7 @@ class ViewController: UIViewController {
     
     @IBAction func read(_ sender: Any) {
         do {
-            guard let sampleData = try SampleData.read(from: fileComponents) as? SampleData else {
-                return
-            }
+            let sampleData = try SampleData.read(SampleData.self, from: fileURLComponents)
             textRead.text = sampleData.text
         } catch {
             showAlert(withTitle: "Error", andMessage: error.localizedDescription)
@@ -44,7 +42,7 @@ class ViewController: UIViewController {
     }
     
     // The file components that will be used when reading & writing the file
-    let fileComponents = FileURLComponents(fileName: "sample",
+    let fileURLComponents = FileURLComponents(fileName: "sample",
                                             fileExtension: "json",
                                             directoryName: nil,
                                             directoryPath: .documentDirectory)

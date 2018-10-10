@@ -13,18 +13,18 @@ struct SampleData: Codable {
 }
 
 extension SampleData: Fileable {
-    func write(to fileNameComponents: FileURLComponents) throws -> URL {
+    func write(to fileURLComponents: FileURLComponents) throws -> URL {
         // Encode the object to JSON data.
         let data = try JSONEncoder().encode(self)
         // Write the data to a file using the File class.
-        return try File.write(data, to: fileNameComponents)
+        return try File.write(data, to: fileURLComponents)
     }
     
-    static func read(from fileNameComponents: FileURLComponents) throws -> Any {
+    static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T {
         // Read the sample data from the file.
-        let data = try File.read(from: fileNameComponents)
+        let data = try File.read(from: fileURLComponents)
         // Decode the JSON data into an object.
-        return try JSONDecoder().decode(SampleData.self, from: data)
+        return try JSONDecoder().decode(type, from: data)
     }
 }
 

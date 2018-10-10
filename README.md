@@ -32,7 +32,7 @@ To read the file, use File's `read` function:
 
 ```swift
 do {
-    let data = try File.read(from: fileURLComponents)
+    let data = try File.read(SampleData.self, from: fileURLComponents)
 } catch {
     throw error
 }
@@ -54,11 +54,11 @@ extension YourClass: FileWritable {
 
 ```swift
 extension YourClass: FileReadable {
-    static func read(from fileURLComponents: FileURLComponents) throws -> Any {
+    static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T {
         // Read the file data using the File class.
         let data = try File.read(from: fileURLComponents)
         // Decode the JSON data into an object.
-        return try JSONDecoder().decode(YourClass.self, from: data)
+        return try JSONDecoder().decode(type, from: data)
     }
 }
 ```

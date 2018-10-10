@@ -49,7 +49,7 @@ public protocol FileWritable {
 
 /// When an object conforms to the FileReadable protocol, it is signaling that the object is capable of creating itself from a file's contents.
 public protocol FileReadable {
-    static func read(from fileURLComponents: FileURLComponents) throws -> Any
+    static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T
 }
 
 /// When an object conforms to Fileable it will conform to both FileWritable and FileReadable.

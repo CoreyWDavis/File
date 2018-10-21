@@ -45,7 +45,7 @@
                                                 <rect key="frame" x="148" y="38" width="47" height="30"/>
                                                 <state key="normal" title="Save It"/>
                                                 <connections>
-                                                    <action selector="save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B1X-B4-HwI"/>
+                                                    <action selector="saveTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ydf-My-gpl"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -57,13 +57,25 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ocw-zu-BWc">
                                         <rect key="frame" x="0.0" y="118" width="343" height="58.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="866-de-x8c">
-                                                <rect key="frame" x="147.5" y="0.0" width="48" height="30"/>
-                                                <state key="normal" title="Read It"/>
-                                                <connections>
-                                                    <action selector="read:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BZl-ub-Bn2"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Zx-2K-oiO">
+                                                <rect key="frame" x="99.5" y="0.0" width="144" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="866-de-x8c">
+                                                        <rect key="frame" x="0.0" y="0.0" width="63" height="30"/>
+                                                        <state key="normal" title="Read File"/>
+                                                        <connections>
+                                                            <action selector="readTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DiL-pt-Xat"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIO-g9-xo0">
+                                                        <rect key="frame" x="71" y="0.0" width="73" height="30"/>
+                                                        <state key="normal" title="Delete File"/>
+                                                        <connections>
+                                                            <action selector="deleteTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Syt-7m-Nph"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8p3-iy-67t">
                                                 <rect key="frame" x="0.0" y="38" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>

@@ -22,7 +22,7 @@ Then, once you have some data that is ready to be saved, pass it and the file na
 
 ```swift
 do {
-    return try File.write(data, to: fileURLComponents)
+    _ = try File.write(data, to: fileURLComponents)
 } catch {
     throw error
 }
@@ -38,8 +38,18 @@ do {
 }
 ```
 
+To delete the file, use File's `delete` function:
+
+```swift
+do {
+    _ = try File.delete(fileURLComponents)
+} catch {
+    throw error
+}
+```
+
 ## Using File with Custom Classes
-To get the most out of File, use the `FileWritable` and `FileReadable` protocols in your custom classes.
+To get the most out of File, use the `FileWritable`, `FileReadable`, and/or `FileDeletable` protocols in your custom classes.
 
 ```swift
 extension YourClass: FileWritable {
@@ -63,7 +73,16 @@ extension YourClass: FileReadable {
 }
 ```
 
-If your object will conform to both `FileWritable` and `FileReadable` then you can use the typealias `Fileable`.
+```swift
+extension YourClass: FileDeletable {
+    static func delete(_fileURLComponents: FileURLComponents) throws -> Bool {
+        // Delete the file at the file URL component's location
+        return try File.delete(fileURLComponents)
+    }
+}
+```
+
+If your object will conform to `FileWritable`, `FileReadable`, and `FileDeleable` then you can use the typealias `Fileable`.
 
 To see it in action, download the File Xcode project.
 
@@ -73,10 +92,10 @@ Until File is converted into a Cocoapod, simply drag the `File.swift` file into 
 ## To Do
 Things I would like to get to sometime soon:
 
-- Deleting files
-- File renaming
-- Folder navigation and file traversal
-- Moving/copying files between folders
+# [checkbox:checked] Deleting files
+# [checkbox:unchecked] File renaming
+# [checkbox:unchecked] Folder navigation and file traversal
+# [checkbox:unchecked] Moving/copying files between folders
 
 ## Have Questions or Suggestions?
 If you have a problem or question, please [open an issue](https://github.com/CoreyWDavis/File/issues). You can also contact me on Twitter [@CoreyDavis](https://twitter.com/coreydavis).

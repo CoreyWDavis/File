@@ -92,10 +92,10 @@ Until File is converted into a Cocoapod, simply drag the `File.swift` file into 
 ## To Do
 Things I would like to get to sometime soon:
 
-# [checkbox:checked] Deleting files
-# [checkbox:unchecked] File renaming
-# [checkbox:unchecked] Folder navigation and file traversal
-# [checkbox:unchecked] Moving/copying files between folders
+- [x] Deleting files
+- [ ] File renaming
+- [ ] Folder navigation and file traversal
+- [ ]] Moving/copying files between folders
 
 ## Have Questions or Suggestions?
 If you have a problem or question, please [open an issue](https://github.com/CoreyWDavis/File/issues). You can also contact me on Twitter [@CoreyDavis](https://twitter.com/coreydavis).

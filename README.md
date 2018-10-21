@@ -95,7 +95,7 @@ Things I would like to get to sometime soon:
 - [x] Deleting files
 - [ ] File renaming
 - [ ] Folder navigation and file traversal
-- [ ]] Moving/copying files between folders
+- [ ] Moving/copying files between folders
 
 ## Have Questions or Suggestions?
 If you have a problem or question, please [open an issue](https://github.com/CoreyWDavis/File/issues). You can also contact me on Twitter [@CoreyDavis](https://twitter.com/coreydavis).

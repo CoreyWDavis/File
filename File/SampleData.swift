@@ -26,6 +26,11 @@ extension SampleData: Fileable {
         // Decode the JSON data into an object.
         return try JSONDecoder().decode(type, from: data)
     }
+    
+    static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool {
+        // Delete the file at the file URL component's location
+        return try File.delete(fileURLComponents)
+    }
 }
 
 // The sample object will conform to equatable to prove that the file written to and read from are equal, but this is not required of your objects to use File.

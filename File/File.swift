@@ -52,15 +52,19 @@ public protocol FileReadable {
     static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T
 }
 
-/// When an object conforms to Fileable it will conform to both FileWritable and FileReadable.
-public typealias Fileable = FileWritable & FileReadable
+public protocol FileDeletable {
+    static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool
+}
+
+/// When an object conforms to Fileable it will conform to FileWritable, FileReadable, and FileDeletable.
+public typealias Fileable = FileWritable & FileReadable & FileDeletable
 
 public enum FileError: Error {
     case unableToCreateDirectory(directory: String, reason: String)
 }
 
 /// The File class can be used by an object conforming to FileWriteable and/or FileReadable to handle read/write operations. This class should not be used to instantiate an object as as all functions are static.
-public class File {
+public class File: NSObject {
     
     /// A static function that will handle writing data to a file.
     /// - Parameters:
@@ -91,6 +95,48 @@ public class File {
             
             // Read the data from the file
             return try Data(contentsOf: sourceURL)
+        } catch {
+            throw error
+        }
+    }
+    
+    /// A static function that will handle deleting a file.
+    /// - Parameters:
+    ///    - from: The components that will make up the source file URL.
+    public static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool {
+        do {
+            // Get the file source url
+            let sourceURL = try File.fileURL(using: fileURLComponents)
+            
+            // Check for the file's existence
+            guard try File.exists(fileURLComponents) else {
+                return false
+            }
+                
+            // Delete the file at the URL
+            try FileManager.default.removeItem(at: sourceURL)
+            return true
+
+        } catch {
+            throw error
+        }
+    }
+    
+    /// A static function that will look for the existence of a file.
+    /// - Parameters:
+    ///    - from: The components that will make up the source file URL.
+    /// - Returns: Returns `true` is the file exists otherwise returns `false`.
+    public static func exists(_ fileURLComponents: FileURLComponents) throws -> Bool {
+        do {
+            // Get the file source url
+            let sourceURL = try File.fileURL(using: fileURLComponents)
+            
+            // Check for the file's existence
+            if FileManager.default.fileExists(atPath: sourceURL.path) {
+                return true
+            } else {
+                return false
+            }
         } catch {
             throw error
         }
@@ -142,3 +188,10 @@ public class File {
         }
     }
 }
+
+//extension File: FileManagerDelegate {
+//    public func fileManager(_ fileManager: FileManager, shouldRemoveItemAt URL: URL) -> Bool {
+//        // An assumption is being made here that this file should be deleted
+//        return true
+//    }
+//}

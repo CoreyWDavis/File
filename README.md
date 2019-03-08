@@ -1,15 +1,15 @@
 #  File
-A simple API to read and write files in Swift.
+A simple API to read, write, and delete files in Swift.
 
 ## Features
-- Lightweight and easy to learn
-- Uses `do, try, catch` for intuitive error handling
-- Pure Swift implimentation
+- Lightweight and easy to learn.
+- Uses `do, try, catch` for intuitive error handling.
+- Pure Swift implementation.
 
 ## Using File
 In its most simplistic form, File can be used to simply write data to files and read it back again.
 
-First, setup a file name components property:
+First, setup a file URL components property:
 
 ```swift
 let fileURLComponents = FileURLComponents(fileName: "my-file-name",
@@ -18,7 +18,7 @@ let fileURLComponents = FileURLComponents(fileName: "my-file-name",
                                        directoryPath: .documentDirectory)
 ```
 
-Then, once you have some data that is ready to be saved, pass it and the file name components to File's `write` function:
+Then, once you have some data that is ready to be saved, pass it and the file URL components to File's `write` function:
 
 ```swift
 do {
@@ -93,6 +93,7 @@ Until File is converted into a Cocoapod, simply drag the `File.swift` file into 
 Things I would like to get to sometime soon:
 
 - [x] Deleting files
+- [ ] Cocoapod support
 - [ ] File renaming
 - [ ] Folder navigation and file traversal
 - [ ] Moving/copying files between folders

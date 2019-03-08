@@ -52,11 +52,12 @@ public protocol FileReadable {
     static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T
 }
 
+/// When an object conforms to the FileDeletable protocol, it is signaling that the object is capable of deleting its file representation.
 public protocol FileDeletable {
     static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool
 }
 
-/// When an object conforms to Fileable it will conform to FileWritable, FileReadable, and FileDeletable.
+/// When an object conforms to Fileable it it is signaling that it will conform to FileWritable, FileReadable, and FileDeletable.
 public typealias Fileable = FileWritable & FileReadable & FileDeletable
 
 public enum FileError: Error {

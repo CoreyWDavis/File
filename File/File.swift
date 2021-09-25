@@ -43,18 +43,38 @@ public struct FileURLComponents {
 }
 
 /// When an object conforms to the FileWritable protocol, it is signaling that the object is capable of saving itself to a file.
-public protocol FileWritable {
+public protocol FileWritable: Encodable {
     func write(to fileURLComponents: FileURLComponents) throws -> URL
 }
 
+extension FileWritable {
+    func write(to fileURLComponents: FileURLComponents) throws -> URL {
+        let data = try JSONEncoder().encode(self)
+        return try File.write(data, to: fileURLComponents)
+    }
+}
+
 /// When an object conforms to the FileReadable protocol, it is signaling that the object is capable of creating itself from a file's contents.
-public protocol FileReadable {
+public protocol FileReadable: Decodable {
     static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T
+}
+
+extension FileReadable {
+    static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T {
+        let data = try File.read(from: fileURLComponents)
+        return try JSONDecoder().decode(type, from: data)
+    }
 }
 
 /// When an object conforms to the FileDeletable protocol, it is signaling that the object is capable of deleting its file representation.
 public protocol FileDeletable {
     static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool
+}
+
+extension FileDeletable {
+    static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool {
+        return try File.delete(fileURLComponents)
+    }
 }
 
 /// When an object conforms to Fileable it it is signaling that it will conform to FileWritable, FileReadable, and FileDeletable.

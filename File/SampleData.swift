@@ -8,29 +8,8 @@
 
 import Foundation
 
-struct SampleData: Codable {
+struct SampleData: Codable, Fileable {
     let text: String
-}
-
-extension SampleData: Fileable {
-    func write(to fileURLComponents: FileURLComponents) throws -> URL {
-        // Encode the object to JSON data.
-        let data = try JSONEncoder().encode(self)
-        // Write the data to a file using the File class.
-        return try File.write(data, to: fileURLComponents)
-    }
-    
-    static func read<T: Decodable>(_ type: T.Type, from fileURLComponents: FileURLComponents) throws -> T {
-        // Read the sample data from the file.
-        let data = try File.read(from: fileURLComponents)
-        // Decode the JSON data into an object.
-        return try JSONDecoder().decode(type, from: data)
-    }
-    
-    static func delete(_ fileURLComponents: FileURLComponents) throws -> Bool {
-        // Delete the file at the file URL component's location
-        return try File.delete(fileURLComponents)
-    }
 }
 
 // The sample object will conform to equatable to prove that the file written to and read from are equal, but this is not required of your objects to use File.
